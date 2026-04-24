@@ -16,7 +16,7 @@ Plano em 6 fases. Cada fase entrega valor real antes da próxima começar.
   - [x] `types.ts` — Piece, Hand, GameState, Move
   - [x] `deck.ts` — gerar/embaralhar/distribuir peças
   - [x] `legalMoves.ts` — jogadas válidas
-  - [ ] `play.ts` — aplicar jogada
+  - [x] `play.ts` — aplicar jogada
   - [ ] `score.ts` — cálculo de pontos
   - [ ] `roundEnd.ts` — dominó, jogo fechado, garagem
   - [ ] `bot/manauara.ts` — bot nível médio (paridade com MVP)

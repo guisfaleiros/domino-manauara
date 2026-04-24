@@ -14,7 +14,7 @@ Plano em 6 fases. Cada fase entrega valor real antes da próxima começar.
 - [x] Configurar Vitest para testes do engine
 - [ ] Portar regras do jogo para `src/engine/` com testes
   - [x] `types.ts` — Piece, Hand, GameState, Move
-  - [ ] `deck.ts` — gerar/embaralhar/distribuir peças
+  - [x] `deck.ts` — gerar/embaralhar/distribuir peças
   - [ ] `legalMoves.ts` — jogadas válidas
   - [ ] `play.ts` — aplicar jogada
   - [ ] `score.ts` — cálculo de pontos

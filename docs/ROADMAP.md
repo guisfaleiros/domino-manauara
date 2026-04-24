@@ -18,7 +18,7 @@ Plano em 6 fases. Cada fase entrega valor real antes da próxima começar.
   - [x] `legalMoves.ts` — jogadas válidas
   - [x] `play.ts` — aplicar jogada
   - [ ] `score.ts` — cálculo de pontos
-  - [ ] `roundEnd.ts` — dominó, jogo fechado, garagem
+  - [x] `roundEnd.ts` — dominó, jogo fechado, garagem
   - [ ] `bot/manauara.ts` — bot nível médio (paridade com MVP)
 - [ ] Criar store Zustand com estado do jogo
 - [ ] Recriar UI em React Native (Home, Jogo)

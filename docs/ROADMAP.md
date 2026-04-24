@@ -11,9 +11,9 @@ Plano em 6 fases. Cada fase entrega valor real antes da próxima começar.
 - [x] Criar scaffold Expo + TypeScript
 - [x] Documentação inicial (CLAUDE.md, ROADMAP.md, GAME_RULES.md)
 - [ ] Configurar NativeWind (Tailwind)
-- [ ] Configurar Vitest para testes do engine
+- [x] Configurar Vitest para testes do engine
 - [ ] Portar regras do jogo para `src/engine/` com testes
-  - [ ] `types.ts` — Piece, Hand, GameState, Move
+  - [x] `types.ts` — Piece, Hand, GameState, Move
   - [ ] `deck.ts` — gerar/embaralhar/distribuir peças
   - [ ] `legalMoves.ts` — jogadas válidas
   - [ ] `play.ts` — aplicar jogada

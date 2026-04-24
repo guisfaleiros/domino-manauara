@@ -6,7 +6,10 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",
@@ -19,7 +22,9 @@
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
-    "typescript": "~5.9.2"
+    "@vitest/ui": "^4.1.5",
+    "typescript": "~5.9.2",
+    "vitest": "^4.1.5"
   },
   "private": true
 }

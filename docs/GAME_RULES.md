@@ -90,29 +90,75 @@ Se só existe a carroça central (nenhum braço com peça), ela vale `a × 2` (a
 
 ## 6. Passe
 
-Quando um jogador não pode jogar:
+Quando um jogador não pode jogar, ele **passa**. A sequência de passes consecutivos segue esta regra:
 
-- **Passe simples:** dupla adversária ganha **+20 pts**
-- **"Nas costas":** quando o **parceiro** do jogador que passou também passa logo em seguida (2 passes consecutivos da mesma dupla), o segundo passe **não dá pontos ao adversário** ("nas costas" = sem prejuízo).
-- **3 passes consecutivos:** jogo continua normalmente (ou pode ativar galo, ver abaixo).
+| Posição na sequência | Quem é | Efeito |
+|----------------------|--------|--------|
+| 1º passe | Adversário imediato de quem jogou | Dupla de quem jogou ganha **+20 pts** |
+| 2º passe | Parceiro de quem jogou | "Nas costas" — **sem pontos** |
+| 3º passe | Outro adversário | **Situação de galo** (ver §7) |
+| 4º passe (quem jogou passa também) | Quem jogou a última peça | **Jogo bloqueado** (ver §8) |
 
-A "**batida**" (quem abriu a rodada, marcada visualmente com 🎯) passa para o próximo jogador quando o portador passa.
+A "**batida**" (quem abriu a rodada, marcada com 🎯) passa para o próximo jogador quando o portador passa.
 
-## 7. Galo (anúncio de fim)
+## 7. Galo
 
-Qualquer jogador pode **anunciar galo** quando acha que vai conseguir terminar a rodada (bater).
+O **galo** é a situação rara e de alta habilidade onde, após um jogador colocar uma peça, **todos os outros três jogadores passam em sequência** e a vez **volta para o jogador original**, que ainda tem peça jogável.
 
-### Como funciona
-1. Jogador anuncia **antes** de jogar sua peça
-2. **Precisa jogar** logo em seguida (se passa, é galo falso)
-3. Se após o anúncio **todos os 3 oponentes passam** em sequência (sem um adversário jogar), a dupla do anunciante ganha **+50 pts** (galo confirmado).
-4. Se qualquer adversário joga depois do anúncio → galo não é confirmado, mas também não é falso (só fica sem efeito).
+É chamado de "galo" porque é como cantar vitória — o jogador percebe que travou todo mundo e só ele consegue continuar a partida.
 
-### Galo falso
-- Anunciante passa em vez de jogar → dupla adversária ganha **+50 pts**.
-- Ou: anunciante anuncia, joga, mas na próxima rodada de passes um adversário joga antes dos 3 passes completos → **não é falso** (regra do MVP atual: galo falso só acontece se o anunciante passa sem ter jogado).
+### Quando acontece objetivamente
 
-> **Nota:** a regra do galo tem variações regionais. Esta é a implementação do MVP. Revisar com a PO se precisar ajustar.
+Dado o estado da mesa, a peça que X vai jogar, e as mãos dos adversários, o galo **é determinístico**: ou os 3 próximos jogadores ficarão sem peça jogável, ou não. Não é sorte — é cálculo.
+
+A habilidade do galo está em **contar as peças** (quais já saíram, quais os outros passaram em quais números) e **deduzir a mão dos outros** o suficiente para ter certeza.
+
+### Ganhar o bônus — precisa anunciar antes
+
+Para ganhar os **+50 pts** do galo, o jogador precisa **anunciar "galo!"** **antes** de jogar a peça.
+
+| Cenário | Resultado |
+|---------|-----------|
+| **Anunciou** + galo aconteceu | ✅ **+50 pts** para a dupla do anunciante |
+| **Anunciou** + algum adversário conseguiu jogar (era mentira) | ❌ **-50 pts** (dupla adversária ganha 50) |
+| **Anunciou** + ele próprio passa em vez de jogar | ❌ **Galo falso** — adversário ganha **+50** |
+| **Não anunciou** mas galo aconteceu | 😢 **Oportunidade perdida** — mostrar mensagem "Você tinha um galo aí!" (sem pontos) |
+| **Não anunciou** e galo não aconteceu | Situação normal, nada acontece |
+
+### Como o bot detecta galos
+
+O engine expõe uma função para detectar galos **computacionalmente**:
+
+```typescript
+/**
+ * Verifica se jogar `move` resultaria em galo:
+ * os próximos 3 jogadores não terão peça jogável
+ * E o próprio jogador ainda terá peça jogável após eles.
+ *
+ * Esta função precisa das mãos dos adversários para ser precisa.
+ * Bots avançados usam isso diretamente. Bots iniciantes podem usar
+ * uma versão com ruído (simula não ter contado direito).
+ */
+export function detectGalo(state: GameState, move: PlayMove): boolean;
+```
+
+#### Comportamento por nível de bot
+
+| Nível | Comportamento |
+|-------|---------------|
+| **Iniciante** | Raramente anuncia — "pega mais leve", deixa passar oportunidades |
+| **Manauara** | Detecta a maioria dos galos reais, anuncia na maioria (70–80%) |
+| **Lenda** | Sempre anuncia quando detecta. Nunca anuncia quando não é galo. |
+
+Bots **nunca** anunciam aleatoriamente (o MVP fazia isso com 3.5% de chance — **está errado**). A decisão tem que vir de `detectGalo()` do engine.
+
+### Mensagem de "oportunidade perdida"
+
+Quando um galo acontece sem ter sido anunciado (seja por humano ou bot iniciante), o engine deve registrar e exibir:
+
+> 🐓 **Você tinha um galo aí!** Se tivesse anunciado, dupla A ganharia +50 pts.
+
+Isso ensina o jogador a identificar galos e vira um recurso de aprendizado (alinhado com a **Fase 6 — Tutorial e IA**).
 
 ## 8. Fim de rodada
 

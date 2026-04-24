@@ -15,7 +15,7 @@ Plano em 6 fases. Cada fase entrega valor real antes da próxima começar.
 - [ ] Portar regras do jogo para `src/engine/` com testes
   - [x] `types.ts` — Piece, Hand, GameState, Move
   - [x] `deck.ts` — gerar/embaralhar/distribuir peças
-  - [ ] `legalMoves.ts` — jogadas válidas
+  - [x] `legalMoves.ts` — jogadas válidas
   - [ ] `play.ts` — aplicar jogada
   - [ ] `score.ts` — cálculo de pontos
   - [ ] `roundEnd.ts` — dominó, jogo fechado, garagem

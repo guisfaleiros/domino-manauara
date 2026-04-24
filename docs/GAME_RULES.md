@@ -120,8 +120,7 @@ Para ganhar os **+50 pts** do galo, o jogador precisa **anunciar "galo!"** **ant
 | Cenário | Resultado |
 |---------|-----------|
 | **Anunciou** + galo aconteceu | ✅ **+50 pts** para a dupla do anunciante |
-| **Anunciou** + algum adversário conseguiu jogar (era mentira) | ❌ **-50 pts** (dupla adversária ganha 50) |
-| **Anunciou** + ele próprio passa em vez de jogar | ❌ **Galo falso** — adversário ganha **+50** |
+| **Anunciou** + algum adversário conseguiu jogar | ❌ **Galo falso** — dupla adversária ganha **+50 pts** |
 | **Não anunciou** mas galo aconteceu | 😢 **Oportunidade perdida** — mostrar mensagem "Você tinha um galo aí!" (sem pontos) |
 | **Não anunciou** e galo não aconteceu | Situação normal, nada acontece |
 
